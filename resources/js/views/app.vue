@@ -1,8 +1,8 @@
 <template>
 
-    <div>
+    <main class="py-4">
         <h1 class="text-center"> Work In Progress</h1>
-    </div>
+    </main>
 
 </template>
 

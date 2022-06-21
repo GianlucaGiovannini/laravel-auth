@@ -2,8 +2,8 @@
 
 @section('app')
 
-    <div id="app">
+<div id="app">
 
-    </div>
-     
+</div>
+
 @endsection
