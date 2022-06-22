@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
-use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -44,7 +42,7 @@ class PostController extends Controller
 
         $val_data = $request->validated();
 
-        $slug = Str::slug($request->title, '-');
+        $slug = Post::generateSlug($request->title);
         //dd($slug);
 
         $val_data['slug'] = $slug;
@@ -61,7 +59,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -72,7 +70,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -84,7 +82,18 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
-        //
+
+        $val_data = $request->validated();
+        //dd($val_data);
+
+        $slug = Post::generateSlug($request->title);
+        //dd($slug);
+
+        $val_data['slug'] = $slug;
+
+        $post->update($val_data);
+
+        return redirect()->route('admin.posts.index')->with('message', "$post->title modificato con successo!");
     }
 
     /**
@@ -95,6 +104,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        
+        $post->delete();
+        return redirect()->route('admin.posts.index')->with('message', "$post->title deleted successfully");
+        
     }
 }
