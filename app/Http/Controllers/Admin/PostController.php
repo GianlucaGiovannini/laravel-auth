@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Post;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -82,6 +83,9 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
+        /* Rule::unique('post')->ignore($post->title, 'title');
+        Rule::unique('posts')->ignore($post->id, 'title');
+        Rule::unique('posts')->ignore($post); */
 
         $val_data = $request->validated();
         //dd($val_data);
@@ -90,6 +94,7 @@ class PostController extends Controller
         //dd($slug);
 
         $val_data['slug'] = $slug;
+
 
         $post->update($val_data);
 
