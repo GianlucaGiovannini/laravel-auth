@@ -4,6 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/* use Illuminate\Validation\Rule;
+
+use Dotenv\Validator; */
+
+
+
+
 class PostRequest extends FormRequest
 {
     /**
@@ -23,8 +30,16 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
+
+/*         Validator::make($data, [
+            'title' => [
+                'required',
+                Rule::unique('posts')->ignore($post->title),
+            ],
+        ]); */
+
         return [
-            'title' => ['required', 'max:150'],
+            'title' => ['required', 'unique:posts', 'max:150'],
             'cover_image' => ['nullable'],
             'content' => ['nullable'],
         ];
